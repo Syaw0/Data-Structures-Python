@@ -32,22 +32,3 @@ class Deque:
   def getStorage(self):
     return self.__storage
   
-
-x = Deque()
-
-x.insertAfter(19)
-x.insertAfter(20)
-x.insertAfter(21)
-x.insertAfter(22)
-
-x.insertBefore(1)
-x.insertBefore(2)
-x.insertBefore(4)
-  
-print(x.getStorage())
-
-x.rmFirst()
-print(x.getStorage())
-
-x.rmLast()
-print(x.getStorage())
