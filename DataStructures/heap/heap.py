@@ -30,18 +30,26 @@ class Heap:
     print(self.storage)
 
 
-  def delete(self):
-    pass
+  def delete(self, key):
+    result = self.checkForKey(key)
+    arr = self.storage
+    print("this is result",result)
+    if not result:
+      return
+    arr[result] , arr[len(arr) - 1] =  arr[len(arr) - 1] , arr[result] 
+    arr.pop()
+    for index in range((len(arr)//2) - 1 , -1 , -1) :
+      self.heapify(self.storage , len(self.storage) , index)
+      
 
-  def peek(self):
-    pass
+  def checkForKey(self,key):
+    if self.storage.count(key) == 0 :
+      return False
+    return self.storage.index(key)
 
-
-x = Heap()
-x.insert(1)
-x.insert(2)
-x.insert(3)
-x.insert(4)
-x.insert(5)
-
-x.show()
+  def peek(self,key):
+    result = self.checkForKey(key)
+    if not result:
+      return
+    return self.storage[result]
+    
