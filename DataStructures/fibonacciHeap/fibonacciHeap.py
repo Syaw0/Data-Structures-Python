@@ -1,6 +1,7 @@
 
 ## ! this structure still have an issue !!
-
+## TODO fix tree child issue 
+## TODO work on delete and decrease key methods!
 
 
 import math
