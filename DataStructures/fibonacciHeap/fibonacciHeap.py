@@ -2,7 +2,13 @@
 ## ! this structure still have an issue !!
 ## TODO fix tree child issue 
 ## TODO work on delete and decrease key methods!
+## ? which is tree and is it an heap?
+## ? i meant that we have one root in root list
+## ? and we have several tree child for every root list so these children 
+## ? must be a heap?? or what??
 
+## * it's seem every tree that connect to the root element can ether be binary or 
+## * non binary tree!
 
 import math
 
