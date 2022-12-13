@@ -25,17 +25,21 @@ class Tree:
             if right < len(self.tmpTree):
                 self.tree[index].right = self.tree[right]
 
-    def inOrderTraverse(self, root=0):
+    def inOrderTraverse(self, root=0, callback=None):
         if root == 0:
             root = self.tree[0]
 
         if root.left != None:
-            self.inOrderTraverse(root.left)
+            self.inOrderTraverse(root.left, callback)
+
+        # * add an callback to use traverse feature!!
+        if callback != None:
+            callback(root)
 
         self.tmp.append(root.value)
 
         if root.right != None:
-            self.inOrderTraverse(root.right)
+            self.inOrderTraverse(root.right, callback)
 
     def preOrderTraverse(self, root=0):
         if root == 0:
@@ -59,4 +63,25 @@ class Tree:
             self.postOrderTraverse(root.right)
         self.tmp.append(root.value)
 
+    def isFullBinary(self): 
+        # * full binary tree have Odd number and we must check for number of internal nodes
+        # * and every of internal nodes must have 2 child
+        numberOfInternalNodes = 0
+        numberOfExternalNodes = 0
+        wholeNodes = len(self.tree)
+        def checkNode(node):
+            nonlocal numberOfExternalNodes,numberOfInternalNodes # to tell python these aren't new variables...
+            if node.left != None and node.right != None:
+                numberOfInternalNodes += 1
+            else :
+                numberOfExternalNodes +=  1
+        self.inOrderTraverse(0,checkNode)
+        if (wholeNodes - 1) / 2 == numberOfInternalNodes:
+            if (wholeNodes + 1) / 2 == numberOfExternalNodes:
+                print("full binary")
+        else:
+            print("its not full binary tree")
 
+
+x = Tree([1,2,3,4,5,6,7,8,9,10,11,12,13])
+x.isFullBinary()
