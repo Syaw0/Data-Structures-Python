@@ -99,6 +99,22 @@ class Tree:
         else:
             print("no its not perfect binary")
 
-x = Tree([1,2,3,4,5,6,7,8,9,10,11,12,13,14])
-x.isPerfectBinary()
+    def isCompleteBinary(self, node=0, index=-1):
+        tmpNode = node
+        if node == 0:
+            tmpNode = self.tree[0]
+            index = 0
+        if tmpNode == None:
+            return True
+        
+        if index >= len(self.tree):
+            return False
+
+        return (self.isCompleteBinary(tmpNode.left, index * 2 + 1) 
+        and  self.isCompleteBinary(tmpNode.right, index * 2 + 1))
+
+
+x = Tree([1,2,3,4,5,6,7,8,9,23,11,12,13,14,15])
+print(x.isCompleteBinary())
+# x.isPerfectBinary()
 # x.isFullBinary()
