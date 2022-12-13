@@ -1,3 +1,4 @@
+import math
 class Node:
     def __init__(self, value):
         self.left = None
@@ -87,5 +88,17 @@ class Tree:
             print("its not full binary tree")
 
 
+    def isPerfectBinary(self):
+        # * perfect binary tree has number of odd nodes and every internal node has 2 child
+        # * and every leaf node must be in the same level
+        wholeNodes = len(self.tree)
+        TreeLevel = math.frexp(wholeNodes)[1]
+        numberOfNodesInLevel = (1 << TreeLevel) - 1
+        if numberOfNodesInLevel == wholeNodes:
+            print("yes its a perfect binary tree")
+        else:
+            print("no its not perfect binary")
+
 x = Tree([1,2,3,4,5,6,7,8,9,10,11,12,13,14])
-x.isFullBinary()
+x.isPerfectBinary()
+# x.isFullBinary()
