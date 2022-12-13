@@ -100,6 +100,9 @@ class Tree:
             print("no its not perfect binary")
 
     def isCompleteBinary(self, node=0, index=-1):
+        # * in this type of binary Tree every layer is filled and its just like full binary but:
+        # * in complete binary every leaf node tend to be in left of side 
+        # * and we can have a node without sibling!
         tmpNode = node
         if node == 0:
             tmpNode = self.tree[0]
