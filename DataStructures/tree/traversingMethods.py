@@ -69,19 +69,23 @@ class Tree:
         numberOfInternalNodes = 0
         numberOfExternalNodes = 0
         wholeNodes = len(self.tree)
+        validity = True
         def checkNode(node):
-            nonlocal numberOfExternalNodes,numberOfInternalNodes # to tell python these aren't new variables...
+            nonlocal numberOfExternalNodes,numberOfInternalNodes,validity # to tell python these aren't new variables...
             if node.left != None and node.right != None:
                 numberOfInternalNodes += 1
+            elif node.left != None or node.right != None:
+                validity = False
             else :
                 numberOfExternalNodes +=  1
         self.inOrderTraverse(0,checkNode)
-        if (wholeNodes - 1) / 2 == numberOfInternalNodes:
+        
+        if (wholeNodes - 1) / 2 == numberOfInternalNodes and validity == True:
             if (wholeNodes + 1) / 2 == numberOfExternalNodes:
                 print("full binary")
         else:
             print("its not full binary tree")
 
 
-x = Tree([1,2,3,4,5,6,7,8,9,10,11,12,13])
+x = Tree([1,2,3,4,5,6,7,8,9,10,11,12,13,14])
 x.isFullBinary()
