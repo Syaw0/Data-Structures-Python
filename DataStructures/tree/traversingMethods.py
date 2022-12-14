@@ -116,8 +116,32 @@ class Tree:
         return (self.isCompleteBinary(tmpNode.left, index * 2 + 1) 
         and  self.isCompleteBinary(tmpNode.right, index * 2 + 1))
 
+    def isBalancedBinary(self, node = 0, height= 0):
+        if node == 0 :
+            node = self.tree[0]
+            height = NodeHeight()
+        
+        rightNodeHeight = NodeHeight()
+        leftNodeHeight =NodeHeight()
+
+        if node == None:
+            return True
+        
+        l = self.isBalancedBinary(node.left , leftNodeHeight)
+        r = self.isBalancedBinary(node.right , rightNodeHeight)
+
+        height.height = max(leftNodeHeight.height, rightNodeHeight.height) + 1
+        print(node.value , height.height)
+        if abs(leftNodeHeight.height - rightNodeHeight.height <= 1):
+            return l and r
+        return False
+        
+
+class NodeHeight:
+    def __init__(self):
+        self.height = 0
 
 x = Tree([1,2,3,4,5,6,7,8,9,23,11,12,13,14,15])
-print(x.isCompleteBinary())
+print(x.isBalancedBinary())
 # x.isPerfectBinary()
 # x.isFullBinary()
