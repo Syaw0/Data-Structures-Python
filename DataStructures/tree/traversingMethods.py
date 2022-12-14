@@ -117,6 +117,9 @@ class Tree:
         and  self.isCompleteBinary(tmpNode.right, index * 2 + 1))
 
     def isBalancedBinary(self, node = 0, height= 0):
+        # * If the difference between the two sides of a node in a tree is equal to one
+        # * we call this binary tree a balanced binary...
+
         if node == 0 :
             node = self.tree[0]
             height = NodeHeight()
@@ -127,11 +130,11 @@ class Tree:
         if node == None:
             return True
         
+        # recursively call to check all the elements...
         l = self.isBalancedBinary(node.left , leftNodeHeight)
         r = self.isBalancedBinary(node.right , rightNodeHeight)
 
         height.height = max(leftNodeHeight.height, rightNodeHeight.height) + 1
-        print(node.value , height.height)
         if abs(leftNodeHeight.height - rightNodeHeight.height <= 1):
             return l and r
         return False
