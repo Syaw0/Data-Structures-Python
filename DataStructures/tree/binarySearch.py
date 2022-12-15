@@ -48,13 +48,89 @@ class BinarySearch:
     if root.value == key:
       return root
     if root.value > key:
-      print(root.value ,'l')
       root.left = self.insert(key, root.left)
+      if root.left != None:
+        root.left.parent = root
     else:
-      print(root.value , 'r')
       root.right = self.insert(key, root.right)
+      if root.right != None:
+        root.right.parent = root
     return root
 
+
+  def getMin(self,node):
+    current = node
+    while current.left != None:
+      current = current.left
+    return current #* we sure this is leaf element
+
+  def deletion(self, key):
+    node = self.search(key)
+    if node == None :
+      return 'no such node exist'
+
+    if node.left == None and node.right == None:
+      if node.parent.value > node.value:
+        node.parent.left = None
+      else:
+        node.parent.right = None
+    elif node.left != None and node.right != None:
+      minNode = self.getMin(node.right)
+      if minNode.right == None:
+        # here is must easy because min node is leaf
+        minNode.parent.left = None
+        if node.parent.value > node.value:
+          node.parent.left = minNode
+        else:
+          node.parent.right = minNode
+        minNode.left = node.left
+        minNode.right = node.right
+        minNode.left.parent = minNode
+        minNode.right.parent = minNode
+
+      else:
+        # in here we have 2 case :
+        if minNode.parent.value > minNode.value:
+          # case 1: node is smaller than parent
+          minNode.parent.left = minNode.right
+          minNode.parent = node.parent
+          if node.parent.value > node.value:
+            node.parent.left = minNode
+          else:
+            node.parent.right = minNode
+          minNode.left = node.left
+          minNode.right = node.right
+          minNode.left.parent = minNode
+          minNode.right.parent = minNode
+        else:
+          # case 2: node is bigger than parent and its mean 
+          # min node connect to that node we want to remove
+          if node.parent.value > node.value:
+            node.parent.left = minNode
+          else:
+            node.parent.right = minNode
+          minNode.parent = node.parent
+          minNode.left = node.left
+          node.left.parent = minNode.parent      
+    else:          
+      # ! this must refactor!!
+      if node.left != None:
+        if node.parent.value > node.value:
+          node.parent.left = node.left
+          node.left.parent = node.parent.left
+        else:
+          node.parent.right = node.left
+          node.left.parent = node.parent.right
+      else:
+        if node.parent.value > node.value:
+          node.parent.left = node.right
+          node.right.parent = node.parent.left
+        else:
+          node.parent.right = node.right
+          node.right.parent = node.parent.right
+
+
+    self.tree.remove(node)
 
 
   def create(self, root=0):
@@ -70,11 +146,13 @@ class BinarySearch:
       randomNumRight = random.randint(0,len(lMax) - 1)
       r = lMax[randomNumRight]
       root.right = Node(r)      
+      root.right.parent = root
       lMax.remove(r)
     if len(lMin) != 0:
       randomNumLeft = random.randint(0,len(lMin) - 1)
       l = lMin[randomNumLeft]
       root.left = Node(l)
+      root.left.parent = root
       lMin.remove(l)
     self.tree.append(root)
     self.createLeft(root.left , lMin)
@@ -89,11 +167,13 @@ class BinarySearch:
       randomNumRight = random.randint(0,len(lMax) - 1)
       r = lMax[randomNumRight]
       root.right = Node(r)      
+      root.right.parent = root
       lMax.remove(r)
     if len(lMin) != 0:
       randomNumLeft = random.randint(0,len(lMin) - 1)
       l = lMin[randomNumLeft]
       root.left = Node(l)
+      root.left.parent = root
       lMin.remove(l)
     self.tree.append(root)
     self.createLeft(root.left , lMin )
@@ -109,11 +189,13 @@ class BinarySearch:
       randomNumRight = random.randint(0,len(lMax) - 1)
       r = lMax[randomNumRight]
       root.right = Node(r)      
+      root.right.parent = root
       lMax.remove(r)
     if len(lMin) != 0:
       randomNumLeft = random.randint(0,len(lMin) - 1)
       l = lMin[randomNumLeft]
       root.left = Node(l)
+      root.left.parent = root
       lMin.remove(l)
     self.tree.append(root)
     self.createLeft(root.left , lMin )
@@ -167,4 +249,9 @@ class BinarySearch:
 
 x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
 x.insert(21)
+x.show()
+print("deletion start")
+# print(len(x.tree))
+x.deletion(19)
+# print(len(x.tree))
 x.show()
