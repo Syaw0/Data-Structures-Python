@@ -33,8 +33,7 @@ class BinarySearch:
     self.tree = []
     self.tmp = list(arr)
     self.mainRoot = None
-    self.lTmp = None
-    self.rTmp = None
+
     self.create()
 
   def create(self, root=0):
@@ -42,32 +41,64 @@ class BinarySearch:
       root = Node(self.tmp[0])
       self.mainRoot = root
       self.tmp.remove(self.tmp[0])
-    
     if root == None:
       return
-    
-    lMin = self.getMinThan(root.value , self.lTmp)
-    lMax = self.getMaxThan(root.value , self.rTmp)
-    self.lTmp = lMin
-    self.rTmp = lMax
-    print(lMax)
-    print(lMin)
+    lMin = self.getMinThan(root.value , self.tmp)
+    lMax = self.getMaxThan(root.value , self.tmp)
     if len(lMax) != 0:
       randomNumRight = random.randint(0,len(lMax) - 1)
       r = lMax[randomNumRight]
-      print('this is right' , r)
       root.right = Node(r)      
-      self.rTmp.remove(r)
+      lMax.remove(r)
     if len(lMin) != 0:
       randomNumLeft = random.randint(0,len(lMin) - 1)
       l = lMin[randomNumLeft]
       root.left = Node(l)
-      self.lTmp.remove(l)
+      lMin.remove(l)
     self.tree.append(root)
-    self.create(root.left)
-    self.create(root.right)
+    self.createLeft(root.left , lMin)
+    self.createRight(root.right , lMax)
 
-    
+  def createLeft(self,root,arr):
+    if root == None :
+      return
+    lMin = self.getMinThan(root.value ,arr)
+    lMax = self.getMaxThan(root.value , arr)
+    if len(lMax) != 0:
+      randomNumRight = random.randint(0,len(lMax) - 1)
+      r = lMax[randomNumRight]
+      root.right = Node(r)      
+      lMax.remove(r)
+    if len(lMin) != 0:
+      randomNumLeft = random.randint(0,len(lMin) - 1)
+      l = lMin[randomNumLeft]
+      root.left = Node(l)
+      lMin.remove(l)
+    self.tree.append(root)
+    self.createLeft(root.left , lMin )
+    self.createLeft(root.right , lMax)
+
+
+  def createRight(self , root , arr):
+    if root == None :
+      return
+    lMin = self.getMinThan(root.value ,arr)
+    lMax = self.getMaxThan(root.value , arr)
+    if len(lMax) != 0:
+      randomNumRight = random.randint(0,len(lMax) - 1)
+      r = lMax[randomNumRight]
+      root.right = Node(r)      
+      lMax.remove(r)
+    if len(lMin) != 0:
+      randomNumLeft = random.randint(0,len(lMin) - 1)
+      l = lMin[randomNumLeft]
+      root.left = Node(l)
+      lMin.remove(l)
+    self.tree.append(root)
+    self.createLeft(root.left , lMin )
+    self.createLeft(root.right , lMax)
+
+
   def getMaxThan(self,value ,arr):
     tmpList = []
     target = arr
@@ -97,21 +128,20 @@ class BinarySearch:
     if root == None :
       return
 
-    print(root.value)
-    print("its left side node")
-    self.show(root.left)
-    print("its right side node")
-    self.show(root.right)
+    print('this is root value',root.value)
+    if root.left == None:
+      print("left of root is none")
+    else:
+      print("left of root is : ", root.left.value)
 
-  def makeTree(self,arr):
-    tmpList = []
-    for item in arr:
-      tmpList.append(Node(item)) 
-    return tmpList
+    if root.right == None:
+      print("right of root is none")
+    else:
+      print("right of root is : ", root.right.value)
+
+    self.show(root.left)
+    self.show(root.right)
 
 
 x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
-
-# x.show()
-print(x.mainRoot.left.left.value)
-# print(random.randint(0,10))      
+x.show()
