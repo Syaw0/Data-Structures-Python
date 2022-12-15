@@ -3,7 +3,7 @@ import random
   # ** binary search is structure of sorted numbers...
   # ** in this DS each left side of root node has less than root 
   # ** and each right side of root node has more than root !
-  # TODO we want 2 operation :  2.insert 3.deletion
+  # TODO we want 1 operation :  1.deletion
   # TODO refactor creation method !
 
 class Node:
@@ -39,7 +39,22 @@ class BinarySearch:
       return self.search(key, root.right)    
     
     
-    
+  def insert(self ,key , root=0):
+    if root == 0:
+      root = self.mainRoot
+    if root == None:
+      print("we reach the element")
+      return Node(key)
+    if root.value == key:
+      return root
+    if root.value > key:
+      print(root.value ,'l')
+      root.left = self.insert(key, root.left)
+    else:
+      print(root.value , 'r')
+      root.right = self.insert(key, root.right)
+    return root
+
 
 
   def create(self, root=0):
@@ -151,5 +166,5 @@ class BinarySearch:
   
 
 x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
-# x.show()
-print(x.search(20))
+x.insert(21)
+x.show()
