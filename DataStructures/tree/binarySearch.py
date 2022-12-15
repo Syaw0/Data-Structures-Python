@@ -3,8 +3,10 @@ import random
   # ** binary search is structure of sorted numbers...
   # ** in this DS each left side of root node has less than root 
   # ** and each right side of root node has more than root !
-  # TODO we want 1 operation :  1.deletion
-  # TODO refactor creation method !
+
+  # TODO refactor method on line 67(deletion)
+  # ? can you write a better algorithm for create ? line(138) and
+  # ? i think this is huge duplication -_-
 
 class Node:
   def __init__(self, value):
