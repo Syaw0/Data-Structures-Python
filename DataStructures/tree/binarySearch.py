@@ -3,21 +3,9 @@ import random
   # ** binary search is structure of sorted numbers...
   # ** in this DS each left side of root node has less than root 
   # ** and each right side of root node has more than root !
-  # TODO we want 3 operation : 1.search  2.insert 3.deletion
+  # TODO we want 2 operation :  2.insert 3.deletion
+  # TODO refactor creation method !
 
-
-
-  # ! in this case that we are using array 
-  # ! we have an problem to create an bsd 
-
-  ## ? possible algorithm i think must work is this that we know R is a mainRoot
-  ## ? then we split list to the min of R and max of R
-  ## ? then catch random item in list and append to the R.left
-  ## ? then for R.left we split list to the max of R.left and min of R.left
-  ## ? then catch random number and add it to the r.left.left 
-  ## ? JUST like this recursively do this until tree make appeared!
-
-  
 class Node:
   def __init__(self, value):
     self.value = value
@@ -29,12 +17,30 @@ class Node:
 
 class BinarySearch:
   def __init__(self, arr):
-    # self.tree = self.makeTree(arr)
     self.tree = []
     self.tmp = list(arr)
     self.mainRoot = None
-
     self.create()
+
+  def search(self, key ,root=0 ):
+    # * look we are recursively look to the tree and because tree is 
+    # * BSD easily we found that if its exist its return node else return None
+    if root == 0 :
+      root = self.mainRoot
+    if root == None:
+      return 
+    
+    if root.value == key:
+      print(root.value,'founded')
+      return root
+    if root.value >  key:
+      return self.search(key, root.left)
+    else:
+      return self.search(key, root.right)    
+    
+    
+    
+
 
   def create(self, root=0):
     if root == 0:
@@ -142,6 +148,8 @@ class BinarySearch:
     self.show(root.left)
     self.show(root.right)
 
+  
 
 x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
-x.show()
+# x.show()
+print(x.search(20))
