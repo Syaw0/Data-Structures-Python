@@ -94,6 +94,9 @@ class Tree:
         wholeNodes = len(self.tree)
         TreeLevel = math.frexp(wholeNodes)[1]
         numberOfNodesInLevel = (1 << TreeLevel) - 1
+        
+        # TODO CHECK IF LEAFS HAVE SAME DEPTH
+
         if numberOfNodesInLevel == wholeNodes:
             print("yes its a perfect binary tree")
         else:
@@ -114,7 +117,7 @@ class Tree:
             return False
 
         return (self.isCompleteBinary(tmpNode.left, index * 2 + 1) 
-        and  self.isCompleteBinary(tmpNode.right, index * 2 + 1))
+        and  self.isCompleteBinary(tmpNode.right, index * 2 + 2))
 
     def isBalancedBinary(self, node = 0, height= 0):
         # * If the difference between the two sides of a node in a tree is equal to one
@@ -144,7 +147,8 @@ class NodeHeight:
     def __init__(self):
         self.height = 0
 
-x = Tree([1,2,3,4,5,6,7,8,9,23,11,12,13,14,15])
-print(x.isBalancedBinary())
+x = Tree([1,2,3,4,5,6,7,8,9,23,11,12,13,14,None,15])
+# print(x.isBalancedBinary())
+print(x.isCompleteBinary())
 # x.isPerfectBinary()
 # x.isFullBinary()
