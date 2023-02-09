@@ -249,11 +249,11 @@ class BinarySearch:
 
   
 
-x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
-x.insert(21)
-x.show()
-print("deletion start")
-# print(len(x.tree))
-x.deletion(19)
-# print(len(x.tree))
-x.show()
+# x = BinarySearch([10, 11 , 43 , 13 , 32 , 19 , 20 , 9 , 5, 1])
+# x.insert(21)
+# x.show()
+# print("deletion start")
+# # print(len(x.tree))
+# x.deletion(19)
+# # print(len(x.tree))
+# x.show()
