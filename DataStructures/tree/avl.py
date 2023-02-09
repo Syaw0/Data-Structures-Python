@@ -128,6 +128,7 @@ class AVL(BinarySearch):
             if node.right.left == None:
                 node.left.parent = node.right
                 node.right.left = node.left
+                node.right.parent = node.parent #*
                 if node.parent.left ==node:
                     node.parent.left = node.right
                 else:
