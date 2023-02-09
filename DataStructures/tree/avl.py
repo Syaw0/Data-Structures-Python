@@ -1,4 +1,5 @@
 from binarySearch import BinarySearch
+from binarySearch import Node
 class AVL(BinarySearch):
     def __init__(self, arr):
         super().__init__(arr)
@@ -105,8 +106,35 @@ class AVL(BinarySearch):
             return self.search(value,node.left)
             
         
-    def insert(self,value):
-        pass
+    def insert(self,value,node=0):
+        if node==0:
+            searchResult = self.search(value)
+            if searchResult!=False :
+                
+                return 'the value exist'
+            else:
+                node = self.tree[0]
+        
+            
+        
+        if value>node.value:
+            if node.right != None:
+                self.insert(value,node.right)
+            else:
+                self.tree.append(value)
+                node.right = Node(value)
+                node.right.parent = node
+                self.balance()
+        else:
+            if node.left != None:
+                self.insert(value,node.left)
+            else:
+                self.tree.append(value)
+                node.left = Node(value)
+                node.left.parent = node
+                self.balance()
+        
+        
         
 
 class NodeHeight:
@@ -122,3 +150,10 @@ if x.balance() != True:
     x.show()
 
 print(x.search(55),'isEXIST?')
+
+x.insert(123)
+x.insert(5)
+x.insert(1)
+x.insert(32)
+x.insert(30)
+x.show()
