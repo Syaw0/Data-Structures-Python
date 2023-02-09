@@ -90,6 +90,23 @@ class AVL(BinarySearch):
             self.tmpList.append({"node":node,"num":leftNodeHeight.height - rightNodeHeight.height})
             return False
 
+    def search(self,value,node=0):
+        if node==0:
+            node= self.tree[0]
+        if node == None:
+            return False
+        if node.value == value:
+            print('found ',node.value)
+            return node.value
+        
+        if   value > node.value:
+            return self.search(value,node.right)
+        else:
+            return self.search(value,node.left)
+            
+        
+    def insert(self,value):
+        pass
         
 
 class NodeHeight:
@@ -103,3 +120,5 @@ print()
 if x.balance() != True:
 
     x.show()
+
+print(x.search(55),'isEXIST?')
