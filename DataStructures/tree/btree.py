@@ -3,6 +3,7 @@ class BTreeNode :
         self.leaf = leaf
         self.keys = []
         self.children =[]
+        self.tree = None
         self.parent = None
 
     def getLen(self):
@@ -44,4 +45,15 @@ class BTree :
         while node.getLen() and node.keys[child] < abs(value) :
             child += 1
         return self.search(node.children[child])
-        
+    
+    def insert(self,value):
+        actual= self.root
+        if len(actual.keys) == (2*self.order) - 1:
+            tmpNode = BTreeNode(False)
+            tmpNode.tree = self
+            self.root = tmpNode
+            tmpNode.addChild(actual,0)
+            self.split(actual,tmpNode,1)
+            self.insertNonFull(tmpNode,value)
+        else:
+            self.insertNonFull(tmpNode,value)
