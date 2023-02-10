@@ -57,3 +57,18 @@ class BTree :
             self.insertNonFull(tmpNode,value)
         else:
             self.insertNonFull(tmpNode,value)
+    
+    def insertNonFull(self,node,value):
+        if node.leaf:
+            node.addKey(value)
+            return
+        
+        tmp = node.getLen()
+        while value < node.keys[tmp - 1]:
+            tmp -= 1
+        if node.children[tmp].getLen() == (2*self.order) - 1 :
+            self.split(node.children[tmp],node,tmp+1)
+            if value > node.keys[tmp]:
+                tmp += 1
+        
+        self.insertNonFull(node.children[tmp],value)
