@@ -1,6 +1,6 @@
 class BTreeNode :
     def __init__(self,leaf=False):
-        self.leaf = False
+        self.leaf = leaf
         self.keys = []
         self.children =[]
         self.parent = None
@@ -26,3 +26,22 @@ class BTreeNode :
 
     def rmChild(self,pos):
         self.children.pop(pos)
+
+
+
+
+class BTree :
+    def __init__(self,order):
+        self.order = order
+        self.root = None
+    
+    def search(self,node,value):
+        if node.keys.count(value) != 0:
+            return node
+        if node.leaf:
+            return False
+        child = 0
+        while node.getLen() and node.keys[child] < abs(value) :
+            child += 1
+        return self.search(node.children[child])
+        
